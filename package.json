@@ -8,6 +8,7 @@
   "types": "./dist/index.d.ts",
   "bin": "./dist/extensions/cli.js",
   "scripts": {
+    "start": "tsc --watch",
     "build": "tsc"
   },
   "dependencies": {
