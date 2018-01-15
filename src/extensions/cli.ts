@@ -14,6 +14,7 @@ function createArgs() {
         "Create .css.d.ts from CSS modules *.css files.",
         "Usage: $0 [options] <input directory>",
     ];
+    // tslint:disable max-line-length
     return yargs
         .usage(commands.join("\n"))
         .example("$0 src/styles", "")
@@ -22,15 +23,17 @@ function createArgs() {
         .detectLocale(false)
         .demand(["_"])
         .alias("c", "camelCase").describe("c", "Convert CSS class tokens to camelcase").boolean("c")
-        .alias("p", "pattern").describe("p", "Glob pattern with css files").default("p", "src/**/*.less")
+        .alias("p", "pattern").describe("p", "Glob pattern with css files").default("p", "./src/**/*.css")
         .alias("w", "watch").describe("w", "Watch input directory's css files or pattern").boolean("w")
+        .alias("m", "mode").describe("m", "Workmode").choices("m", ["local", "global"]).default("m", "local")
         .alias("h", "help").help("h")
         .version(require("../../package.json").version);
+    // tslint:enable max-line-length
 }
 
 interface IOptions {
-    mode: "local" | "global";
-    camelCase: boolean;
+    mode?: "local" | "global";
+    camelCase?: boolean;
     searchDirectory?: string;
     filesPattern?: string;
 }
@@ -38,8 +41,7 @@ interface IOptions {
 // tslint:disable no-console object-literal-sort-keys
 async function main() {
     const yarg = createArgs();
-
-    const argv = _.pickBy(yarg.argv, (value, name) => name.length > 1 || name === "_");
+    const { argv } = yarg;
 
     if (argv.help) {
         yarg.showHelp();
@@ -60,7 +62,7 @@ async function main() {
 
     const filesPattern = path.join(options.searchDirectory, options.filesPattern);
 
-    const createDTSFile = makeCreateDTSFile();
+    const createDTSFile = makeCreateDTSFile(options);
 
     if (argv.watch) {
         console.log(`Watch ${filesPattern}...`);

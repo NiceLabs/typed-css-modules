@@ -1,17 +1,12 @@
-declare module "css-modules-loader-core/lib/parser" {
-    import { Plugin } from "postcss"
+declare module "css-selector-tokenizer" {
+    export function parse(input: string): Node;
 
-    type PathFetcher = (file: string, relativeTo: string, depTrace: string) => Promise<object>
-
-    class Parser {
-        constructor(pathFetcher?: PathFetcher, trace?: string)
-
-        plugin: Plugin<any>;
-
-        exportTokens: { [name: string]: string; };
+    export interface Node {
+        type: string;
+        name?: string;
+        value?: string;
+        nodes?: Node[];
     }
-
-    export = Parser
 }
 
 declare module "postcss-load-config" {

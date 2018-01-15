@@ -1,2 +1,2 @@
 export { createTypeHint } from "./type-hint";
-export { getModuleNames } from "./modules";
+export { getModuleTokens } from "./modules";
