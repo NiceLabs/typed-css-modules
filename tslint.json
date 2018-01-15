@@ -1,5 +1,8 @@
 {
   "extends": [
     "tslint:latest"
-  ]
+  ],
+  "rules": {
+    "no-submodule-imports": false
+  }
 }

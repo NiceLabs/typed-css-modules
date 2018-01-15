@@ -1,23 +1,20 @@
 import fs = require("fs");
+import { getOptions } from "loader-utils";
 import _ = require("lodash");
 import ts = require("typescript");
 import { promisify } from "util";
+import webpack = require("webpack");
 
 import { createTypeHint } from "../type-hint";
+import { makeCreateDTSFile } from "../utils";
 
-export default function loader(source: string) {
-    createTypeHintFile(getNames(source), `${this.resourcePath}.d.ts`);
-    return source;
-}
+export default function loader(this: webpack.loader.LoaderContext, source: string, sourceMap: string | Buffer) {
+    this.cacheable();
 
-async function createTypeHintFile(names: string[], path: string) {
-    if (_.isEmpty(names)) { return; }
-    await promisify(fs.writeFile)(path, createTypeHint(names));
-}
+    const callback = this.async();
+    const createDTSFile = makeCreateDTSFile();
 
-function getNames(source: string): string[] {
-    return _.chain(ts.createSourceFile("", source, ts.ScriptTarget.Latest))
-        .get("statements.0.expression.right.properties")
-        .map<ts.Node, string>("name.text")
-        .value();
+    createDTSFile(this.resourcePath, source)
+        .then(() => callback(undefined, source, sourceMap))
+        .catch((err) => callback(err));
 }

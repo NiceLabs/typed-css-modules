@@ -4,40 +4,36 @@ import _ = require("lodash");
 import { promisify } from "util";
 import webpack = require("webpack");
 
-import { createTypeHint } from "../type-hint";
-import { getModuleNames } from "./postcss-plugin";
+import { makeCreateDTSFile } from "../utils";
 
-export interface IOptions {
-    mode: "local" | "global";
-    camelCase: boolean;
-    filesPattern: string | string[];
+export interface IPluginOptions {
+    mode?: "local" | "global";
+    camelCase?: boolean;
+    filesPattern?: string | string[];
 }
 
 export default class TypedCSSModulesPlugin implements webpack.Plugin {
-    private options: IOptions;
+    private options: IPluginOptions = {
+        camelCase: false,
+        filesPattern: ["**/*.css", "**/*.less", "**/*.scss"],
+        mode: "global",
+    };
 
-    public constructor(options: IOptions) {
-        this.options = _.defaults(options, {
-            filesPattern: "**/*.css",
-        });
+    public constructor(options?: IPluginOptions) {
+        this.options = _.defaults(options, this.options);
     }
 
     public apply(compiler: webpack.Compiler) {
+        const createDTSFile = makeCreateDTSFile();
+
         const watcher = chokidar.watch(this.options.filesPattern);
         compiler.plugin("compile", () => {
-            watcher.on("add", this.createDTSFile);
-            watcher.on("change", this.createDTSFile);
+            watcher.on("add", createDTSFile);
+            watcher.on("change", createDTSFile);
         });
         compiler.plugin("done", () => {
             watcher.close();
         });
         return;
-    }
-
-    private async createDTSFile(path: string) {
-        const source = await promisify(fs.readFile)(path);
-        const names = await getModuleNames(source.toString(), this.options);
-        const dtsFile = createTypeHint(names);
-        await promisify(fs.writeFile)(`${path}.d.ts`, dtsFile);
     }
 }
