@@ -62,7 +62,7 @@ async function main() {
 
     const filesPattern = path.join(options.searchDirectory, options.filesPattern);
 
-    const createDTSFile = makeCreateDTSFile(options);
+    const createDTSFile = _.unary(makeCreateDTSFile(options));
 
     if (argv.watch) {
         console.log(`Watch ${filesPattern}...`);

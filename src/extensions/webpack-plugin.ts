@@ -16,7 +16,7 @@ export default class TypedCSSModulesPlugin {
 
     public constructor(options?: IPluginOptions) {
         this.options = _.defaults(options, { filesPattern: "./src/**/*.css" });
-        this.createDTSFile = makeCreateDTSFile(this.options);
+        this.createDTSFile = _.unary(makeCreateDTSFile(this.options));
     }
 
     public apply(compiler: webpack.Compiler) {

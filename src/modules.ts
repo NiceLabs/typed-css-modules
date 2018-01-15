@@ -5,7 +5,7 @@ import loadConfig = require("postcss-load-config");
 
 import { getModuleTokensWithSelector, ISelectorOptions } from "./modules-selector";
 
-export function getModuleTokens(source: string, from?: string, options?: ISelectorOptions): Promise<string[]> {
+export async function getModuleTokens(source: string, from?: string, options?: ISelectorOptions): Promise<string[]> {
     let tokens: string[] = [];
 
     const walkTokensPlugin = (css: PostCSS.Root) => {
@@ -18,12 +18,12 @@ export function getModuleTokens(source: string, from?: string, options?: ISelect
         });
     };
 
-    return (async () => {
-        const config = await loadConfig();
-        config.options.from = from || config.file;
+    const config = await loadConfig();
+    config.options.from = from || config.file;
 
-        await PostCSS(_.concat(config.plugins, [walkTokensPlugin])).process(source, config.options);
+    await PostCSS(config.plugins)
+        .use(walkTokensPlugin)
+        .process(source, config.options);
 
-        return tokens;
-    })();
+    return tokens;
 }

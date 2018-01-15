@@ -21,13 +21,15 @@ export const makeCreateDTSFile = (options?: any) => async (filePath: string, sou
         const tokens = await getModuleTokens(payload, filePath, options);
         if (!_.isEmpty(tokens)) {
             await writeFile(target, createTypeHint(tokens));
+            console.log(`CSS-Modules: Updated ${target}`);
             return;
         }
         if (await exists(target)) {
             await unlink(target);
+            console.log(`CSS-Modules: Removed ${target}`);
         }
     } catch (e) {
-        console.log(`Error ${target} Message "${e.message}"`);
+        console.log(`CSS-Modules: Error ${target} Message "${e.message}"`);
     }
 };
 // tslint:enable no-console
