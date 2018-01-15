@@ -9,9 +9,9 @@ export function createTypeHint(tokens: string[]) {
             undefined, ts.createLiteral(token), undefined,
             ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword), undefined,
         ))
-        .thru(ts.createTypeLiteralNode)
-        .thru((node) => ts.createTypeAliasDeclaration(
-            undefined, undefined, ts.createIdentifier("Locals"), undefined, node,
+        .thru((members) => ts.createTypeAliasDeclaration(
+            undefined, undefined, ts.createIdentifier("Locals"), undefined,
+            ts.createTypeLiteralNode(members),
         ))
         .value();
     const localsName = ts.createIdentifier("locals");
