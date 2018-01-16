@@ -10,29 +10,25 @@ export interface ISelectorOptions {
 export function getModuleTokensWithSelector(selector: string, options?: ISelectorOptions) {
     options = _.defaults(options, { mode: "local", camelCase: false });
     return _.chain(Tokenizer.parse(selector).nodes)
-        .flatMap((token) => getTokens(token, options.mode, []))
+        .flatMap((node) => getTokens(node, { mode: options.mode }, []))
         .map(options.camelCase ? _.camelCase : _.identity)
         .value();
 }
 
-const validMode = (mode: string) => _.includes(["local", "global"], mode);
-
-const getTokens = ({ name, type, nodes }: Tokenizer.Node, mode: string, tokens: string[]): string[] => {
-    let nextMode = mode;
-    let nextTokens = tokens;
-    if (validMode(name)) {
+const getTokens = ({ name, type, nodes }: Tokenizer.Node, options: { mode: string }, tokens: string[]): string[] => {
+    if (name === "local" || name === "global") {
         if (type === "pseudo-class") {
-            nextMode = name;
+            options.mode = name;
         }
         if (type === "nested-pseudo-class") {
-            return getTokens(nodes[0], name, tokens);
+            return getTokens(nodes[0], { mode: name }, tokens);
         }
     }
-    if (mode === "local" && ["id", "class"].includes(type)) {
-        nextTokens = _.union(tokens, [name]);
+    if (options.mode === "local" && (type === "id" || type === "class")) {
+        tokens = _.union(tokens, [name]);
     }
     if (_.isArray(nodes)) {
-        return _.flatMap(nodes, (node) => getTokens(node, nextMode, nextTokens));
+        return _.flatMap(nodes, (node) => getTokens(node, options, tokens));
     }
-    return nextTokens;
+    return tokens;
 };
