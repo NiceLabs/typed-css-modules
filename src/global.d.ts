@@ -18,7 +18,7 @@ declare module "postcss-load-config" {
         options: ProcessOptions
     }
 
-    function loadConfig(context?: object, path?: string, options?: ProcessOptions): Promise<Config>;
+    function loadConfig(context?: object, path?: string, options?: any): Promise<Config>;
 
     export = loadConfig
 }
