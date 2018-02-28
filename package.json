@@ -2,40 +2,45 @@
   "name": "@nicelabs/typed-css-modules",
   "version": "1.0.0",
   "description": "Typed CSS Modules (Nice-labs)",
-  "license": "ISC",
+  "license": "MIT",
   "author": "Septs",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": "./dist/extensions/cli.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NiceLabs/typed-css-modules"
+  },
   "scripts": {
-    "start": "tsc --watch",
     "build": "tsc",
+    "start": "tsc --watch",
     "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "dependencies": {
-    "chokidar": "^2.0.0",
+    "chokidar": "^2.0.2",
     "css-selector-tokenizer": "^0.7.0",
     "glob": "^7.1.2",
     "loader-utils": "^1.1.0",
-    "lodash": "^4.17.4",
-    "postcss": "^6.0.16",
+    "lodash": "^4.17.5",
+    "postcss": "^6.0.19",
     "postcss-load-config": "^1.2.0",
-    "typescript": "^2.6.2",
-    "webpack": "^3.10.0",
-    "yargs": "^10.1.1"
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.0",
-    "@types/chokidar": "^1.7.4",
-    "@types/glob": "^5.0.34",
-    "@types/loader-utils": "^1.1.1",
-    "@types/lodash": "^4.14.92",
-    "@types/mocha": "^2.2.46",
-    "@types/webpack": "^3.8.2",
-    "@types/yargs": "^10.0.1",
+    "@types/chai": "^4.1.2",
+    "@types/chokidar": "^1.7.5",
+    "@types/glob": "^5.0.35",
+    "@types/loader-utils": "^1.1.2",
+    "@types/lodash": "^4.14.104",
+    "@types/mocha": "^2.2.48",
+    "@types/webpack": "^3.8.8",
+    "@types/yargs": "^11.0.0",
     "chai": "^4.1.2",
-    "mocha": "^4.1.0",
-    "ts-node": "^4.1.0",
+    "mocha": "^5.0.1",
+    "ts-node": "^5.0.0",
     "tslint": "^5.9.1"
+  },
+  "peerDependencies": {
+    "typescript": "^2.7.2"
   }
 }

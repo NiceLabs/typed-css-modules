@@ -1,9 +1,7 @@
 {
-  "extends": [
-    "tslint:latest"
-  ],
+  "extends": ["tslint:latest"],
   "rules": {
     "no-submodule-imports": false,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": false
   }
 }

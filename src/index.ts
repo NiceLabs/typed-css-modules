@@ -1,4 +1,4 @@
 export { createTypeHint } from "./type-hint";
 export { getModuleTokens } from "./modules";
-export { default as TypedCSSModulesLoader } from "./extensions/webpack-loader";
-export { default as TypedCSSModulesPlugin } from "./extensions/webpack-plugin";
+export { default as Loader } from "./extensions/webpack-loader";
+export { default as Plugin } from "./extensions/webpack-plugin";
