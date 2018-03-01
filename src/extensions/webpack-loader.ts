@@ -8,9 +8,9 @@ export default function loader(this: loader.LoaderContext, source: string) {
 
     const createDTSFile = makeCreateDTSFile(getOptions(this));
 
-    async function handler() {
+    const handler = async () => {
         await createDTSFile(this.resourcePath, source);
-    }
+    };
 
     callbackify(handler)(this.async());
 }
