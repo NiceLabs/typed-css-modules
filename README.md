@@ -56,6 +56,55 @@ async function main() {
 main();
 ```
 
+## Webpack loader integrated
+
+```ts
+// webpack.config.ts
+import webpack from "webpack";
+
+const configure: webpack.Configuration = {
+  module：{
+    rules: [
+      // ...
+      {
+        test: /\.css$/,
+        use: [
+          [require.resolve("@nice-labs/typed-css-modules/dist/extensions/webpack-loader"), {
+            mode: "local", // "local" | "global" (default is "local")
+            camelCase: false // boolean (default is false)
+          }],
+          require.resolve("postcss-loader"),
+        ]
+      }
+      // ...
+    ]
+  }
+};
+
+export default configure;
+```
+
+## Webpack plugin integrated
+
+```ts
+// webpack.config.ts
+import TypedCSSModulesPlugin from "@nice-labs/typed-css-modules";
+
+const configure: webpack.Configuration = {
+  plugins: [
+    // ...
+    new TypedCSSModulesPlugin({
+      mode: "local", // "local" | "global" (default is "local")
+      camelCase: false, // boolean (default is false)
+      filesPattern: "./src/**/*.css" // string | string[] (default is "./src/**/*.css")
+    })
+    // ...
+  ]
+};
+
+export default configure;
+```
+
 ## License
 
 This software is released under the MIT License, see LICENSE.txt.

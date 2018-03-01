@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "start": "tsc --watch",
     "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
