@@ -3,14 +3,17 @@ import { callbackify } from "util";
 import { loader } from "webpack";
 import { makeCreateDTSFile } from "../utils";
 
-export default function loader(this: loader.LoaderContext, source: string) {
-    this.cacheable();
+const loader: loader.Loader = function(source, sourceMap?) {
+    if (this.cacheable) {
+        this.cacheable();
+    }
 
     const createDTSFile = makeCreateDTSFile(getOptions(this));
 
-    const handler = async () => {
-        await createDTSFile(this.resourcePath, source);
-    };
+    const callback = this.async();
+    createDTSFile(this.resourcePath, source.toString())
+        .then(() => callback(null, source, sourceMap))
+        .catch((err) => callback(err));
+};
 
-    callbackify(handler)(this.async());
-}
+export default loader;
