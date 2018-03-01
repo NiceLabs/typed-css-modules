@@ -42,10 +42,10 @@ npm install -D @nice-labs/typed-css-modules
 
 ```ts
 import * as fs from "fs";
-import { promiseify } from "util";
+import { promisify } from "util";
 import { getModuleTokens, createTypeHint } from "@nice-labs/typed-css-modules";
 
-const readFile = promiseify(fs.readFile);
+const readFile = promisify(fs.readFile);
 
 async function main() {
   const source = await readFile("locals.css");
