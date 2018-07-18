@@ -25,10 +25,9 @@ export const makeCreateDTSFile = (options?: any) => async (filePath: string, sou
         }
         if (await exists(target)) {
             await unlink(target);
-            console.log(`CSS-Modules: Removed ${target}`);
         }
     } catch (e) {
-        console.log(`CSS-Modules: Error ${target} Message "${e.message}"`);
+        // ignore error
     }
 };
 // tslint:enable no-console
