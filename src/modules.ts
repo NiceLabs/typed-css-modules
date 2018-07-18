@@ -18,7 +18,7 @@ export async function getModuleTokens(source: string, from?: string, options?: I
         });
     };
 
-    const config = await loadConfig();
+    const config = await getConfig();
     config.options.from = from || config.file;
 
     await PostCSS(config.plugins)
@@ -26,4 +26,14 @@ export async function getModuleTokens(source: string, from?: string, options?: I
         .process(source, config.options);
 
     return tokens;
+}
+
+function getConfig() {
+    const defaults: any = {
+        file: undefined,
+        options: { from: undefined },
+        plugins: [],
+    };
+    return loadConfig()
+        .catch(_.constant(defaults));
 }
