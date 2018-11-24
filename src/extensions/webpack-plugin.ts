@@ -20,6 +20,7 @@ export default class TypedCSSModulesPlugin {
     }
 
     public apply(compiler: webpack.Compiler) {
+        if (this.options.filesPattern === undefined) { return; }
         const watcher = chokidar.watch(this.options.filesPattern);
         compiler.plugin("compile", () => {
             watcher.on("add", this.createDTSFile);
