@@ -1,16 +1,16 @@
-import _ = require("lodash");
-import ts = require("typescript");
+import _ from "lodash";
+import ts from "typescript";
 
 export function createTypeHint(tokens: string[]) {
     if (_.isEmpty(tokens)) { return ""; }
     const Locals = _.chain(tokens)
-        .sortedUniq()
+        .union()
         .map((token) => ts.createPropertySignature(
             undefined, ts.createLiteral(token), undefined,
             ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword), undefined,
         ))
         .thru((members) => ts.createInterfaceDeclaration(
-            undefined, undefined, ts.createIdentifier("Locals"),
+            undefined, undefined, ts.createIdentifier("ILocals"),
             undefined, undefined, members,
         ))
         .value();
@@ -36,5 +36,11 @@ export function createTypeHint(tokens: string[]) {
         ts.createExportAssignment(undefined, undefined, true, localsName),
     ]);
 
-    return ts.createPrinter().printFile(file);
+    const lines = [
+        "// tslint:disable",
+        "// The code is automated generator",
+        "// https://github.com/NiceLabs/typed-css-modules",
+        ts.createPrinter().printFile(file),
+    ];
+    return lines.join("\n");
 }

@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-import chokidar = require("chokidar");
-import fs = require("fs");
-import glob = require("glob");
-import _ = require("lodash");
-import path = require("path");
+import chokidar from "chokidar";
+import glob from "glob";
+import _ from "lodash";
+import path from "path";
 import { promisify } from "util";
-import yargs = require("yargs");
+import yargs from "yargs";
 
 import { makeCreateDTSFile } from "../utils";
 
@@ -60,7 +59,7 @@ async function main() {
         return;
     }
 
-    const filesPattern = path.join(options.searchDirectory, options.filesPattern);
+    const filesPattern = path.join(options.searchDirectory, options.filesPattern || "");
 
     const createDTSFile = _.unary(makeCreateDTSFile(options));
 

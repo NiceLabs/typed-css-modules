@@ -1,4 +1,4 @@
-import _ = require("lodash");
+import _ from "lodash";
 
 import { expect } from "chai";
 import "mocha";
@@ -6,7 +6,7 @@ import "mocha";
 import { getModuleTokensWithSelector } from "./modules-selector";
 
 describe("getModuleTokens with selector", () => {
-    it("should local mode", () => {
+    it("local mode", () => {
         // tslint:disable object-literal-sort-keys
         const mapping: { [name: string]: string[]; } = {
             ".foo": ["foo"],
@@ -27,7 +27,7 @@ describe("getModuleTokens with selector", () => {
         });
     });
 
-    it("should global mode", () => {
+    it("global mode", () => {
         // tslint:disable object-literal-sort-keys
         const mapping: { [name: string]: string[]; } = {
             ".foo": [],

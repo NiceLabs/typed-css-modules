@@ -1,6 +1,6 @@
-import _ = require("lodash");
+import _ from "lodash";
 
-import Tokenizer = require("css-selector-tokenizer");
+import Tokenizer from "css-selector-tokenizer";
 
 export interface ISelectorOptions {
     mode?: "local" | "global";
@@ -10,22 +10,22 @@ export interface ISelectorOptions {
 export function getModuleTokensWithSelector(selector: string, options?: ISelectorOptions) {
     options = _.defaults(options, { mode: "local", camelCase: false });
     return _.chain(Tokenizer.parse(selector).nodes)
-        .flatMap((node) => getTokens(node, { mode: options.mode }, []))
+        .flatMap((node) => getTokens(node, { mode: options!.mode }, []))
         .map(options.camelCase ? _.camelCase : _.identity)
         .value();
 }
 
-const getTokens = ({ name, type, nodes }: Tokenizer.Node, options: { mode: string }, tokens: string[]): string[] => {
+const getTokens = ({ name, type, nodes }: Tokenizer.INode, options: { mode?: string }, tokens: string[]): string[] => {
     if (name === "local" || name === "global") {
         if (type === "pseudo-class") {
             options.mode = name;
         }
         if (type === "nested-pseudo-class") {
-            return getTokens(nodes[0], { mode: name }, tokens);
+            return getTokens(nodes![0], { mode: name }, tokens);
         }
     }
     if (options.mode === "local" && (type === "id" || type === "class")) {
-        tokens = _.union(tokens, [name]);
+        tokens = _.compact(_.union(tokens, [name]));
     }
     if (_.isArray(nodes)) {
         return _.flatMap(nodes, (node) => getTokens(node, options, tokens));

@@ -1,7 +1,7 @@
-import _ = require("lodash");
+import _ from "lodash";
 
-import PostCSS = require("postcss");
-import loadConfig = require("postcss-load-config");
+import PostCSS from "postcss";
+import loadConfig from "postcss-load-config";
 
 import { getModuleTokensWithSelector, ISelectorOptions } from "./modules-selector";
 
@@ -14,7 +14,7 @@ export async function getModuleTokens(source: string, from?: string, options?: I
                 node.selectors,
                 (selector) => getModuleTokensWithSelector(selector, options),
             );
-            tokens = _.union(tokens, newTokens);
+            tokens = _.compact(_.union(tokens, newTokens));
         });
     };
 
