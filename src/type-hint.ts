@@ -37,7 +37,12 @@ export function createTypeHint(tokens: string[]) {
     ]);
 
     const lines = [
+        "/* eslint-disable */",
+        "/* ignore jslint start */",
         "// tslint:disable",
+        "// jscs:disable",
+        "// jshint ignore: start",
+        "",
         "// The code is automated generator",
         "// https://github.com/NiceLabs/typed-css-modules",
         ts.createPrinter().printFile(file),

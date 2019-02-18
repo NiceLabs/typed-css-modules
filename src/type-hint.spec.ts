@@ -10,7 +10,12 @@ describe("type-hint generator", () => {
     it("tokens", () => {
         const hint = createTypeHint(["a", "b", "c"]);
         const result = dedent`
+        /* eslint-disable */
+        /* ignore jslint start */
         // tslint:disable
+        // jscs:disable
+        // jshint ignore: start
+
         // The code is automated generator
         // https://github.com/NiceLabs/typed-css-modules
         interface ILocals {
