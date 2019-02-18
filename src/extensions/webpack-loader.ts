@@ -1,11 +1,11 @@
 import { getOptions } from "loader-utils";
 import { loader } from "webpack";
-import { makeCreateDTSFile } from "../utils";
+import { makeDTSFile } from "../utils";
 
 const loader: loader.Loader = function (source, sourceMap?) {
     if (this.cacheable) { this.cacheable(); }
 
-    const createDTSFile = makeCreateDTSFile(getOptions(this));
+    const createDTSFile = makeDTSFile(getOptions(this));
 
     const callback = this.async();
     if (callback === undefined) { return; }

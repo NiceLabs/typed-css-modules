@@ -6,7 +6,7 @@ import path from "path";
 import { promisify } from "util";
 import yargs from "yargs";
 
-import { makeCreateDTSFile } from "../utils";
+import { makeDTSFile } from "../utils";
 
 function createArgs() {
     const commands = [
@@ -65,7 +65,7 @@ async function main() {
 
     const filesPattern = path.join(options.searchDirectory, options.filesPattern || "");
 
-    const createDTSFile = _.unary(makeCreateDTSFile(options));
+    const createDTSFile = _.unary(makeDTSFile(options));
 
     if (argv.watch) {
         console.log(`Watch ${filesPattern}...`);

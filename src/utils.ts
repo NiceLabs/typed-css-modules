@@ -6,7 +6,7 @@ import { promises as fs } from "fs";
 import { getModuleTokens } from "./modules";
 import { createTypeHint } from "./type-hint";
 
-export const makeCreateDTSFile = (options?: any) =>
+export const makeDTSFile = (options?: any) =>
     async (filePath: string, source?: string) => {
         const target = `${filePath}.d.ts`;
         try {

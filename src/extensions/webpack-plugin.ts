@@ -2,7 +2,7 @@ import _ = require("lodash");
 
 import chokidar = require("chokidar");
 import webpack = require("webpack");
-import { makeCreateDTSFile } from "../utils";
+import { makeDTSFile } from "../utils";
 
 export interface IPluginOptions {
     mode?: "local" | "global";
@@ -16,7 +16,7 @@ export default class TypedCSSModulesPlugin {
 
     public constructor(options?: IPluginOptions) {
         this.options = _.defaults(options, { filesPattern: "./src/**/*.css" });
-        this.createDTSFile = _.unary(makeCreateDTSFile(this.options));
+        this.createDTSFile = _.unary(makeDTSFile(this.options));
     }
 
     public apply(compiler: webpack.Compiler) {
