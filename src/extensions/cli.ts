@@ -48,10 +48,14 @@ async function main() {
     }
 
     const options: IOptions = {
-        mode: argv.mode,
+        mode: argv.mode as IOptions['mode'],
         camelCase: Boolean(argv.camelCase),
-        searchDirectory: !_.isEmpty(argv._) ? _.first(argv._) : argv.pattern ? "." : undefined,
-        filesPattern: argv.pattern,
+        searchDirectory: !_.isEmpty(argv._)
+            ? _.first(argv._)
+            : argv.pattern
+                ? "."
+                : undefined,
+        filesPattern: argv.pattern as IOptions['filesPattern'],
     };
 
     if (_.isUndefined(options.searchDirectory)) {
