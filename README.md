@@ -18,10 +18,9 @@ typed-css-modules creates the following .d.ts files from the above css:
 ```ts
 /* locals.css.d.ts */
 interface ILocals {
-    "a": string;
-    "b": string;
-    "c": string;
-    [key: string]: string;
+    "local": string;
+    "local-1": string;
+    [name: string]: string;
 }
 declare const locals: ILocals;
 export = locals;
