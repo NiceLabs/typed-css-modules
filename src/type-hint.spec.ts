@@ -15,6 +15,7 @@ describe("type-hint generator", () => {
         // tslint:disable
         // jscs:disable
         // jshint ignore: start
+        // prettier-ignore
 
         // The code is automated generator
         // https://github.com/NiceLabs/typed-css-modules
@@ -22,6 +23,7 @@ describe("type-hint generator", () => {
             "a": string;
             "b": string;
             "c": string;
+            [name: string]: string;
         }
         declare const locals: ILocals;
         export = locals;

@@ -1,14 +1,29 @@
 import _ from "lodash";
 import ts from "typescript";
 
+const StringKeyword = ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
+
+const IndexSignature = ts.createIndexSignature(
+    undefined, undefined,
+    ts.createNodeArray([
+        ts.createParameter(
+            undefined, undefined,
+            undefined, "name",
+            undefined, StringKeyword,
+        ),
+    ]),
+    StringKeyword,
+);
+
 export function createTypeHint(tokens: string[]) {
     if (_.isEmpty(tokens)) { return ""; }
     const Locals = _.chain(tokens)
         .union()
-        .map((token) => ts.createPropertySignature(
+        .map((token): ts.TypeElement => ts.createPropertySignature(
             undefined, ts.createLiteral(token), undefined,
-            ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword), undefined,
+            StringKeyword, undefined,
         ))
+        .concat(IndexSignature)
         .thru((members) => ts.createInterfaceDeclaration(
             undefined, undefined, ts.createIdentifier("ILocals"),
             undefined, undefined, members,
@@ -42,6 +57,7 @@ export function createTypeHint(tokens: string[]) {
         "// tslint:disable",
         "// jscs:disable",
         "// jshint ignore: start",
+        "// prettier-ignore",
         "",
         "// The code is automated generator",
         "// https://github.com/NiceLabs/typed-css-modules",

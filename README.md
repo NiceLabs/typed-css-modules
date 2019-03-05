@@ -17,11 +17,13 @@ typed-css-modules creates the following .d.ts files from the above css:
 
 ```ts
 /* locals.css.d.ts */
-type Locals = {
-  "local": string;
-  "local-1": string;
-};
-declare const locals: Locals;
+interface ILocals {
+    "a": string;
+    "b": string;
+    "c": string;
+    [key: string]: string;
+}
+declare const locals: ILocals;
 export = locals;
 ```
 
@@ -62,6 +64,8 @@ main();
 // webpack.config.ts
 import webpack from "webpack";
 
+import * as TypedCSSModules from "@nice-labs/typed-css-modules";
+
 const configure: webpack.Configuration = {
   module：{
     rules: [
@@ -69,7 +73,7 @@ const configure: webpack.Configuration = {
       {
         test: /\.css$/,
         use: [
-          [require.resolve("@nice-labs/typed-css-modules/dist/extensions/webpack-loader"), {
+          [TypedCSSModules.loader, {
             mode: "local", // "local" | "global" (default is "local")
             camelCase: false // boolean (default is false)
           }],
