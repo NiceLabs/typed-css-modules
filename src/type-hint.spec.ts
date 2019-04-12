@@ -8,7 +8,7 @@ import { createTypeHint } from "./type-hint";
 
 describe("type-hint generator", () => {
     it("tokens", () => {
-        const hint = createTypeHint(["a", "b", "c"]);
+        const hint = createTypeHint(["c", "b", "a"]);
         const result = dedent`
         /* eslint-disable */
         /* ignore jslint start */

@@ -18,6 +18,7 @@ const IndexSignature = ts.createIndexSignature(
 export function createTypeHint(tokens: string[]) {
     if (_.isEmpty(tokens)) { return ""; }
     const Locals = _.chain(tokens)
+        .sortBy()
         .union()
         .map((token): ts.TypeElement => ts.createPropertySignature(
             undefined, ts.createLiteral(token), undefined,
