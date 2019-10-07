@@ -8,21 +8,3 @@ declare module "css-selector-tokenizer" {
         nodes?: this[];
     }
 }
-
-declare module "postcss-load-config" {
-    import { Plugin, ProcessOptions } from "postcss";
-
-    interface IConfig {
-        file: string;
-        plugins: Array<Plugin<any>>;
-        options: ProcessOptions;
-    }
-
-    function loadConfig(
-        context?: object,
-        path?: string,
-        options?: any,
-    ): Promise<IConfig>;
-
-    export = loadConfig;
-}
