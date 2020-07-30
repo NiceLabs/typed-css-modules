@@ -1,15 +1,15 @@
-import _ from "lodash";
-import dedent from "ts-dedent";
+import _ from 'lodash';
+import dedent from 'ts-dedent';
 
-import { expect } from "chai";
-import "mocha";
+import { expect } from 'chai';
+import 'mocha';
 
-import { createTypeHint } from "./type-hint";
+import { createTypeHint } from './type-hint';
 
-describe("type-hint generator", () => {
-    it("tokens", () => {
-        const hint = createTypeHint(["c", "b", "a"]);
-        const result = dedent`
+describe('type-hint generator', () => {
+  it('tokens', () => {
+    const hint = createTypeHint(['c', 'b', 'a']);
+    const result = dedent`
         /* eslint-disable */
         /* ignore jslint start */
         // tslint:disable
@@ -29,6 +29,6 @@ describe("type-hint generator", () => {
         export = locals;
 
         `;
-        expect(result).to.eql(hint);
-    });
+    expect(result).to.eql(hint);
+  });
 });
