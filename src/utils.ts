@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-import _ from 'lodash';
-
 import { promises as fs } from 'fs';
-
+import _ from 'lodash';
 import { getModuleTokens } from './modules';
+import { ISelectorOptions } from './modules-selector';
 import { createTypeHint } from './type-hint';
 
-export const makeDTSFile = (options?: any) => async (
+export const makeDTSFile = (options?: ISelectorOptions) => async (
   filePath: string,
   source?: string,
 ) => {

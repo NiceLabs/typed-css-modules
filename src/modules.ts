@@ -35,7 +35,7 @@ export async function getModuleTokens(
 }
 
 function getConfig() {
-  const defaults: any = {
+  const defaults = {
     file: undefined,
     options: { from: undefined },
     plugins: [],

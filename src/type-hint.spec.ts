@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import dedent from 'ts-dedent';
 
 import { expect } from 'chai';

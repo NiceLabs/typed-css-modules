@@ -13,7 +13,7 @@ export function getModuleTokensWithSelector(
 ) {
   options = _.defaults(options, { mode: 'local', camelCase: false });
   return _.chain(Tokenizer.parse(selector).nodes)
-    .flatMap((node) => getTokens(node, { mode: options!.mode }, []))
+    .flatMap((node) => getTokens(node, { mode: options?.mode }, []))
     .map(options.camelCase ? _.camelCase : _.identity)
     .value();
 }
