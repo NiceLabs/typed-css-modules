@@ -1,1 +1,4 @@
 !/dist/
+/.*
+/scripts
+/tsconfig.json
