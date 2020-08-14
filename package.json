@@ -45,7 +45,7 @@
     "env": "0.0.2",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-dedent": "^1.1.1",
